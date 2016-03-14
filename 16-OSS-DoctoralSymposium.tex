@@ -249,10 +249,16 @@ Finally, answering the second research question we can demonstrate that only 50\
 \section{Possible applications and further research}
 \label{sec:discussion}
 
-In the results we have observed that the current assumption, based on the SZZ algorithm, does not hold in all cases. Around half of the previous commits analyzed have been identified as the cause for inserting the line with the bug. However, may be that a larger number of tickets has to be studied to ascertain that our findings can be generalized, a detailed article about the study is going to be submitted in the ICSME 2016. Furthermore, one of the challenges in my PhD is go in depth what we can do to prevent the bug in these cases where the previous commit didn't insert the bug. Focusing in find an approach that prevent them and could alert us in these cases where a clean line at some point in the evolution of the code, could be buggy at other point of the source code. 
+In the results we have observed that the current assumption, based on the SZZ algorithm, does not hold in all cases. Around half of the previous commits analyzed have been identified as the cause for inserting the line with the bug. However, may be that a larger number of tickets has to be studied to ascertain that our findings can be generalized, a detailed article about the study is going to be submitted in the ICSME 2016. Furthermore, one of the challenges in my PhD is going in depth what we can do to prevent the bug in these cases where the previous commit didn't insert the bug. Focusing in find an approach that prevent them and could alert us in these cases where a clean line at some point in the evolution of the code, could be buggy at other point of the source code. 
 
-The next researches attempt to answer the RQ3, classifying all the bugs which have not been prevented using either machine learning classifiers or support vector machine based on SZZ algorithm. We could provide a classification of all these bugs according to dates, type of changes, number of lines or 
-experience of developer as other previous studies have done with these bugs which have been prevented, avoiding fault prone bug fixes.
+The next researches attempt to answer the RQ3, classifying all the bugs which have not been prevented using either machine learning classifiers or support vector machine~\cite{shivaji2009reducing,shivaji2013reducing} based on SZZ algorithm. We could provide a classification of all these bugs, as other previous studies have done~\cite{kim2008classifying,kamei2010revisiting,matsumoto2010analysis,hata2012bug,fujiwara2013assessing} with the bugs which have been prevented, according to the following variables to avoid fault prone bug fixes:
+
+\begin{itemize}
+  \item The date of the changes that inserted a bug according to SZZ algorithm.
+  \item The type of changes done in the seeding of the bug such as changes in a function, changes in an If/Else condition, changes in a name variable and so on.
+  \item The number of lines modified in the bug-fix commit.
+  \item The experience in the project of the developer that fix the bug.
+\end{itemize} 
 
 This classification could contribute to understand if one of the new variables studied is more prone to appear in these kind of bugs. Meaning that in all these cases where the previous commit didn't injected the bug; is there a pattern repeating?. Currently and after the study presented in this paper, our hypothesis supports the idea of the changes in the API are one of the most prone bugs which are not been inserted by the previous commit, and we could try to prevent these type of bugs in a further study. But the difficulty of this next study reside in how we can prevent the bugs inserted in a change whereas we cannot recognize if this change will be a bug in the future. To answer the RQ4, we must to study which classifier could be the best to prevent this futures bugs.
 
