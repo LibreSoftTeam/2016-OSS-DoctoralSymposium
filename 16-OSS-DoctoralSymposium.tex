@@ -39,7 +39,7 @@
 
 \begin{document}
 
-\title*{Analyzing if a Bug was Introduced in the Previous Commit}
+\title*{Analyzing how the bugs are injected into the source code.}
 % Use \titlerunning{Short Title} for an abbreviated version of
 % your contribution title if the original one is too long
 \author{Gema Rodr\'iguez-P\'erez\inst{1}}
@@ -55,10 +55,9 @@
 \maketitle
 
 \begin{abstract}
-There is an ample research in the software engineering literature on software defects. In the field of Mining Software Repositories, many studies on bug seeding start with an implicit assumption: the bug fixed had been introduced in the previous modification (i.e., in the previous commit) of those same lines of the source code. However, although reasonable, there has been no empirical evidence to prove this assumption, and there are reasons to suppose that in some cases the bug may have been introduced by other actions such as a change in the API that is being called.
+There is an ample research in the software engineering literature on software defects. In the field of mining software repositories, it's very important understand how the bugs are injected into the source code to prevent the system to fail. In the currently literature many studies on bug seeding start with an implicit assumption: the bug fixed had been introduced in the previous modification (i.e., in the previous commit) of those same lines of the source code. However, we have conducted and observational study that proved the assumption that bugs have been introduced in the previous commit and the results, showed this assumption does not hold for a large fraction of the bugs analyzed.
 
-We have conducted an observational study that involved bug notifications from a free and open-source cloud computing software platform in order to shed some light on this topic by analyzing the relationship of bug fixes with their previous commits. Our results show that the assumption that bugs have been introduced in the previous commit does not hold for a large fraction of the bugs analyzed.
-
+Our objetive is shed some light on bug seeding topic by analyzing how the bug are inserted into the source code and understanding why the bug appears in the source whereas the developers are at their disposal code reviews and automatic inspections. We pretend conducted an large observational study that involved bug notifications from a free and open-source cloud computing software platform in order to find some pattern that can help us preventing the bugs. 
 \end{abstract}
 
 \keywords{Bug introduction, bug seeding, SZZ algorithm, previous commit}
@@ -68,7 +67,7 @@ We have conducted an observational study that involved bug notifications from a 
 
 Many efforts on how and why bugs are introduced in the software source code are underway in the software engineering research community. Software source code is affected by many changes, many of them due to failure of the software because of emergent bugs. Developers try to fix them by locating and modifying the line(s) of source code in which the bug is. Concepts such as \emph{bug seeding} help us to find how and where a bug was inserted in the source code, and should be reasonable to assume that last modification, or \textit{previous commit}, of this line or these lines injected the bug.
 
-In spite of the many studies in the area of mining software repositories that are based on this implicit assumption, it is not a trivial task to find when and where a bug has been introduced in the source code, and thus to identify who introduced the bug. There are some reasons to suppose that in some cases the bug may not have been introduced in the previous commit, being other actions such as change in the API that is being called or an older modification the cause for a bug. But in fact, this has been largely ignored in the related work; as anecdotal evidence in papers of different areas of research the following statements can be found: 
+In spite of the many studies in the area of mining software repositories that are based on this implicit assumption, it is not a trivial task to find when and where a bug has been introduced in the source code, and thus to identify who introduced the bug. There are some reasons to assume that in some cases the bug may not have been introduced in the previous commit, being other actions such as change in the API that is being called or an older modification the cause for a bug. But in fact, this has been largely ignored in the related work; as anecdotal evidence in papers of different areas of research the following statements can be found: 
 
 \begin{itemize}
   \item in bug seeding studies, e.g., \textit{``This earlier change is the one that caused the later fixed''}~\cite{williams2008szz} or \textit{``The lines affected in the process of fixing a bug are the same one that originated or seeded that bug''}~\cite{izquierdo2011developers},
@@ -118,9 +117,9 @@ Bug-Fix (V5):
 
 In this example, according to SZZ algorithm the previous commits \textit{d6dd5cdfa and dbb854635} inserted the bug; due to some drawbacks in this algorithm, the approach carried on~\cite{kim2006automatic} added some improvements removing some false positives. So according with this approach, the commit \textit{dbb854635} was who inserted the bug, because the other commit, \textit{d6dd5cdfa}, only modified the name of the API call and it is a false positive. But this intuition in this example in not fulfilled, because of the two lines involved in the bug-fix which were inserted in the \textit{V1} haven't any bug, this function works fine at these moment. 
 
-The goal of my PhD, at this moment, is to find out to which extent the cause of bugs can be attributed to the previous commit, and shed some light to understand why and what the bug appeared.  This is the reason why we conducted an observational study that involved issue notifications from the most active components in the OpenStack project. From the issue notifications we have to analyze only those that are bug notifications, so before analyzing who and what caused a bug, we have to be able to identify the bugs reports. 
+The goal of my PhD, at this moment, is to find out to which extent the cause of bugs can be attributed to the previous commit, and shed some light to understand why and what the bug appeared. This is the reason why we conducted an observational study that involved issue notifications from the most active components in the OpenStack project. From the issue notifications we have to analyze only those that are bug notifications, so before analyzing who and what caused a bug, we have to be able to identify the bugs reports. We think that this observational study is the first step to identify and understand how, when and why the bug was injected into the source code.
 
-In detail, we attempt to address the following research questions:
+In detail, we would like to answer our main research question, \textit{How the bugs are seeding in the code?}. But firts, we attempt to address the following research questions, some of them are methodological questions:
 \begin{itemize}
     \item RQ1:  Which reports in the issue tracking system are (real) bug reports?
     \item RQ2:  How often is the previous commit the cause of the bug?
@@ -128,8 +127,9 @@ In detail, we attempt to address the following research questions:
 
 The results from  the above research questions, give cause for attempting address the following research questions in a future study;  
 \begin{itemize}
-    \item RQ3:  How can we classify the bugs which have not been inserted in the previous commit?
-    \item RQ4:  How could we prevent these bugs ?
+    \item RQ3:  Could we find some pattern in the bug seeding?
+    \item RQ4:  Are these patterns present in the different programing lenguages?
+    \item RQ5:  How could we prevent these bugs ?
 \end{itemize}
 
 The remainder of this paper is structured as follows; first, we present the related work in Section~\ref{sec:related}, in Section~\ref{sec:methodology} we detail the two stages carried out in our methodology. Results from the two stages are then shown in Section~\ref{sec:results}. Finally, we present the future work and the possible applications of our findings in Section~\ref{sec:discussion} .
@@ -151,7 +151,7 @@ Other approach to identify the origins of a bug is describes by Sinha et al.~\ci
 \section{Methodology}
 \label{sec:methodology}
 
-We have carried out an empirical study where 459 issues reports were analyzed. These issues reports are called tickets in OpenStack, and were taken randomly from four of the more actives repositories of OpenStack project, \texttt{Nova, Cinder, Neutron and Horizon}. The OpenStack project was particularly of interest because of its highest scope and heterogeneous nature with hundreds of developers (more than 5,000 developers) contributing to provide an infrastructure for the worlds largest brands such as Ericsson, Dell, Nokia or EBAY. OpenStack has about 184,000 tickets, of which more than 144,000 have been closed by more than 6,000 developers in all its history, and it has more than 233,000 commits with more than 2 million lines of code\footnote{\url{http://activity.openstack.org/dash/browser/}}. All its history is saved and available in a version control system\footnote{\url{https://wiki.openstack.org/wiki/Getting_The_Code}}, as well as its issue tracking system (Launchpad\footnote{\url{https://launchpad.net/openstack}}) and the source code review system (Gerrit\footnote{\url{https://review.openstack.org/}}). These statistics have been extracted from the publicly available OpenStack database\footnote{\url{http://activity.openstack.org/dash/browser/data/db/}}. 
+Until now, we have carried out an empirical study where 459 issues reports were analyzed. These issues reports are called tickets in OpenStack, and were taken randomly from four of the more actives repositories of OpenStack project, \texttt{Nova, Cinder, Neutron and Horizon}. The OpenStack project was particularly of interest because of its highest scope and heterogeneous nature with hundreds of developers (more than 5,000 developers) contributing to provide an infrastructure for the worlds largest brands such as Ericsson, Dell, Nokia or EBAY. OpenStack has about 184,000 tickets, of which more than 144,000 have been closed by more than 6,000 developers in all its history, and it has more than 233,000 commits with more than 2 million lines of code\footnote{\url{http://activity.openstack.org/dash/browser/}}. All its history is saved and available in a version control system\footnote{\url{https://wiki.openstack.org/wiki/Getting_The_Code}}, as well as its issue tracking system (Launchpad\footnote{\url{https://launchpad.net/openstack}}) and the source code review system (Gerrit\footnote{\url{https://review.openstack.org/}}). These statistics have been extracted from the publicly available OpenStack database\footnote{\url{http://activity.openstack.org/dash/browser/data/db/}}. 
 
 The study consists of two stages in which at the end we obtain a classification. In the first, three researchers with programming knowledge have worked in parallel analyzing and classifying tickets using a double blind review process. In the second, only one researcher analyzed the cause of the bug.
 
@@ -249,9 +249,9 @@ Finally, answering the second research question we can demonstrate that only 50\
 \section{Possible applications and further research}
 \label{sec:discussion}
 
-In the results we have observed that the current assumption, based on the SZZ algorithm, does not hold in all cases. Around half of the previous commits analyzed have been identified as the cause for inserting the line with the bug. However, may be that a larger number of tickets has to be studied to ascertain that our findings can be generalized, a detailed article about the study is going to be submitted in the ICSME 2016. Furthermore, one of the challenges in my PhD is going in depth what we can do to prevent the bug in these cases where the previous commit didn't insert the bug. Focusing in find an approach that prevent them and could alert us in these cases where a clean line at some point in the evolution of the code, could be buggy at other point of the source code. 
+In the results we have observed that the current assumption, based on the SZZ algorithm, does not hold in all cases. Around half of the previous commits analyzed have been identified as the cause for inserting the line with the bug. At this moment we know that exist two types of bug seedings, the ones where the previous commit inserted the bug and those in which the bug were inserted by other actions such as changes in the API. Furthermore, one of the challenges in my PhD is going in depth to understand how the bug is inserted in the source code, and what we can do to prevent the bug. Focusing in find an approach that could be atomatize and alert to developers in code review process or in automatic inspection process, in these cases where a clean line at some point in the evolution of the code, could be buggy at other point of the source code.
 
-The next researches attempt to answer the RQ3, classifying all the bugs which have not been prevented using either machine learning classifiers or support vector machine~\cite{shivaji2009reducing,shivaji2013reducing} based on SZZ algorithm. We could provide a classification of all these bugs, as other previous studies have done~\cite{kim2008classifying,kamei2010revisiting,matsumoto2010analysis,hata2012bug,fujiwara2013assessing} with the bugs which have been prevented, according to the following variables to avoid fault prone bug fixes:
+The next researches attempt to answer the RQ3, classifying all the bugs which have not been prevented using either machine learning classifiers or support vector machine~\cite{shivaji2009reducing,shivaji2013reducing} based on SZZ algorithm to find a pattern. We could provide a classification of all these bugs which were not prevented, as other previous studies have done~\cite{kim2008classifying,kamei2010revisiting,matsumoto2010analysis,hata2012bug,fujiwara2013assessing}, according to the following variables to avoid fault prone bug fixes:
 
 \begin{itemize}
   \item The date of the changes that inserted a bug according to SZZ algorithm.
@@ -262,7 +262,7 @@ The next researches attempt to answer the RQ3, classifying all the bugs which ha
 
 This classification could contribute to understand if one of the new variables studied is more prone to appear in these kind of bugs. Meaning that in all these cases where the previous commit didn't injected the bug; is there a pattern repeating?. Currently and after the study presented in this paper, our hypothesis supports the idea of the changes in the API are one of the most prone bugs which are not been inserted by the previous commit, and we could try to prevent these type of bugs in a further study. But the difficulty of this next study reside in how we can prevent the bugs inserted in a change whereas we cannot recognize if this change will be a bug in the future. To answer the RQ4, we must to study which classifier could be the best to prevent this futures bugs.
 
-Also, we extend this study to other projects and other languages such as Java or Java Script to ascertain that what we have found occurs regardless of the project analyzed, because the OpenStack may be a special project, where the code is evolving continuously. In fact, we can access a huge database of other projects such as Eclipse or Mozilla that will allow us analyze this assumption, and where we will use statistical analysis to compare the results obtained in the different projects. 
+Also, we extend this study to other projects and other languages such as Java or Java Script due to the compiler interpreter is different in these lenguages. That way we can ascertain that what we have found occurs regardless of the project analyzed, because the OpenStack may be a special project, where the code is evolving continuously, also the language used is python. In fact, we can access a huge database of other projects such as Eclipse or Mozilla that will allow us analyze this assumption, and where we will use statistical analysis to compare the results obtained in the different projects. 
 
 In addition, we want to continue developing the tool, and we will try to automatizes second stage. In addition, could be a good idea develop an automatic classifier based on keywords extracted from the issues tracking systems and code review systems that can distinguish bug reports from other issues. An article about the tool has been accepted in the OSS 2016 conference.
 %\nocite{*}
