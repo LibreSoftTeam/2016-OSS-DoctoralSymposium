@@ -57,7 +57,7 @@
 \begin{abstract}
 There is an ample research in the software engineering literature on software defects. In the field of mining software repositories, it's very important understand how the bugs are injected into the source code to prevent the system to fail. In the currently literature many studies on bug seeding start with an implicit assumption: the bug fixed had been introduced in the previous modification (i.e., in the previous commit) of those same lines of the source code. However, we have conducted and observational study that proved the assumption that bugs have been introduced in the previous commit and the results, showed this assumption does not hold for a large fraction of the bugs analyzed.
 
-Our objetive is shed some light on bug seeding topic by analyzing how the bug are inserted into the source code and understanding why the bug appears in the source whereas the developers are at their disposal code reviews and automatic inspections. We pretend conducted an large observational study that involved bug notifications from a free and open-source cloud computing software platform in order to find some pattern that can help us preventing the bugs. 
+Our objective is shed some light on bug seeding topic by analyzing how the bug are inserted into the source code and understanding why the bug appears in the source whereas the developers are at their disposal code reviews and automatic inspections. We pretend conducted an large observational study that involved bug notifications from a free and open-source cloud computing software platform in order to find some pattern that can help us preventing the bugs. 
 \end{abstract}
 
 \keywords{Bug introduction, bug seeding, SZZ algorithm, previous commit}
@@ -119,7 +119,7 @@ In this example, according to SZZ algorithm the previous commits \textit{d6dd5cd
 
 The goal of my PhD, at this moment, is to find out to which extent the cause of bugs can be attributed to the previous commit, and shed some light to understand why and what the bug appeared. This is the reason why we conducted an observational study that involved issue notifications from the most active components in the OpenStack project. From the issue notifications we have to analyze only those that are bug notifications, so before analyzing who and what caused a bug, we have to be able to identify the bugs reports. We think that this observational study is the first step to identify and understand how, when and why the bug was injected into the source code.
 
-In detail, we would like to answer our main research question, \textit{How the bugs are seeding in the code?}. But firts, we attempt to address the following research questions, some of them are methodological questions:
+In detail, we would like to answer our main research question, \textit{How the bugs are seeding in the code?}. But first, we attempt to address the following research questions, some of them are methodological questions:
 \begin{itemize}
     \item RQ1:  Which reports in the issue tracking system are (real) bug reports?
     \item RQ2:  How often is the previous commit the cause of the bug?
@@ -128,7 +128,7 @@ In detail, we would like to answer our main research question, \textit{How the b
 The results from  the above research questions, give cause for attempting address the following research questions in a future study;  
 \begin{itemize}
     \item RQ3:  Could we find some pattern in the bug seeding?
-    \item RQ4:  Are these patterns present in the different programing lenguages?
+    \item RQ4:  Are these patterns present in the different programming languages?
     \item RQ5:  How could we prevent these bugs ?
 \end{itemize}
 
@@ -254,10 +254,10 @@ In the results we have observed that the current assumption, based on the SZZ al
 The next researches attempt to answer the RQ3, classifying all the bugs which have not been prevented using either machine learning classifiers or support vector machine~\cite{shivaji2009reducing,shivaji2013reducing} based on SZZ algorithm to find a pattern. We could provide a classification of all these bugs which were not prevented, as other previous studies have done~\cite{kim2008classifying,kamei2010revisiting,matsumoto2010analysis,hata2012bug,fujiwara2013assessing}, according to the following variables to avoid fault prone bug fixes:
 
 \begin{itemize}
-  \item The date of the changes that inserted a bug according to SZZ algorithm.
-  \item The type of changes done in the seeding of the bug such as changes in a function, changes in an If/Else condition, changes in a name variable and so on.
+  \item The date of the changes.
+  \item The type of changes done in the bug seeding such as changes in a function, changes in an If/Else condition, changes in a name variable and so on.
   \item The number of lines modified in the bug-fix commit.
-  \item The experience in the project of the developer that fix the bug.
+  \item The experience of the developer that fixed the bug.
 \end{itemize} 
 
 This classification could contribute to understand if one of the new variables studied is more prone to appear in these kind of bugs. Meaning that in all these cases where the previous commit didn't injected the bug; is there a pattern repeating?. Currently and after the study presented in this paper, our hypothesis supports the idea of the changes in the API are one of the most prone bugs which are not been inserted by the previous commit, and we could try to prevent these type of bugs in a further study. But the difficulty of this next study reside in how we can prevent the bugs inserted in a change whereas we cannot recognize if this change will be a bug in the future. To answer the RQ4, we must to study which classifier could be the best to prevent this futures bugs.
@@ -266,8 +266,8 @@ Also, we extend this study to other projects and other languages such as Java or
 
 In addition, we want to continue developing the tool, and we will try to automatizes second stage. In addition, could be a good idea develop an automatic classifier based on keywords extracted from the issues tracking systems and code review systems that can distinguish bug reports from other issues. An article about the tool has been accepted in the OSS 2016 conference.
 %\nocite{*}
-\bibliographystyle{abbrv}
-\bibliography{sigproc}  % sigproc.bib is the name of the Bibliography in this case
+%\bibliographystyle{abbrv}
+%\bibliography{sigproc}  % sigproc.bib is the name of the Bibliography in this case
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
